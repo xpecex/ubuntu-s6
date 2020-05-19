@@ -24,6 +24,7 @@ ARCH=(
 # ie: <release name>=<architecture 1>,<architecture 2>,...<architecture n>
 UNSUPPORTED=(
     "focal=linux/386"
+    "groovy=linux/386"
 )
 checkSupport() {
 
@@ -72,12 +73,12 @@ for RELEASE in "${RELEASES[@]}"; do
 
         _ARCH=""
         case "$_PLATFORM" in
-        linux/386) _ARCH="i386" ;;
-        linux/amd64) _ARCH="amd64" ;;
-        linux/arm/v6) _ARCH="armhf" ;;
-        linux/arm/v7) _ARCH="armhf" ;;
-        linux/arm64) _ARCH="arm64" ;;
-        linux/ppc64el) _ARCH="ppc64el" ;;
+            linux/386)      _ARCH="i386" ;;
+            linux/amd64)    _ARCH="amd64" ;;
+            linux/arm/v6)   _ARCH="armhf" ;;
+            linux/arm/v7)   _ARCH="armhf" ;;
+            linux/arm64)    _ARCH="arm64" ;;
+            linux/ppc64le)  _ARCH="ppc64el" ;;
         esac
 
         # SET ROOTFS DOWNLOAD URL
@@ -89,6 +90,9 @@ for RELEASE in "${RELEASES[@]}"; do
         fi
         if [ "${_ARCH}" = "arm64" ]; then
             _ARCH="arm"
+        fi
+        if [ "${_ARCH}" = "ppc64el" ]; then
+            _ARCH="ppc64le"
         fi
         S6_URL="https://github.com/just-containers/s6-overlay/releases/download/v${S6_INSTALL_VERSION}/s6-overlay-${_ARCH}.tar.gz"
 

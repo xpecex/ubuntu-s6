@@ -17,7 +17,7 @@ ARCH=(
     "linux/arm/v6"
     "linux/arm/v7"
     "linux/arm64"
-    "linux/ppc64el"
+    "linux/ppc64le"
 )
 
 # REMOVE UNSUPPORTED ARCH FOR RELEASE

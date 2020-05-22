@@ -62,8 +62,6 @@ for RELEASE in "${RELEASES[@]}"; do
     _RELEASE="${RELEASE%%"="*}"
     NUM_RELEASE="${RELEASE#*"="}"
 
-    S6_URL=""
-
     # Check ARCH support
     PLATFORM=($(checkSupport ${_RELEASE}))
     echo "$_RELEASE ($NUM_RELEASE) supported architectures: ${PLATFORM[@]}"
@@ -83,7 +81,7 @@ for RELEASE in "${RELEASES[@]}"; do
             linux/ppc64le)  _ARCH="ppc64el" ;;
         esac
 
-        # SET ROOTFS DOWNLOAD URL
+        # SET ROOTFS DOWNLOAD URL 
         ROOTFS_URL="https://partner-images.canonical.com/core/${_RELEASE}/current/ubuntu-${_RELEASE}-core-cloudimg-${_ARCH}-root.tar.gz"
 
         # SET S6-OVERLAY DOWNLOAD URL
@@ -101,8 +99,9 @@ for RELEASE in "${RELEASES[@]}"; do
         # Create dir for platform
         mkdir -p "$_PLATFORM"
 
-        # DOWNLOAD ROOTFS
+        # DOWNLOAD ROOTFS AND S6-OVERLAY
         wget -nv "${ROOTFS_URL}" -O "${_PLATFORM}/rootfs.tar.gz" # rootfs
+        wget -nv "${S6_URL}" -O "${_PLATFORM}/s6-overlay.tar.gz" # s6-overlay
     done
 
     # BUILD AND PUSH TO DOCKER
@@ -110,7 +109,6 @@ for RELEASE in "${RELEASES[@]}"; do
     # CONFIGURE DOCKERFILE FOR XENIAL
     if [ "$_RELEASE" = "xenial" ]; then
         sed -i 's/RUN \[ -z "$(apt-get indextargets)" ]/RUN rm -rf \/var\/lib\/apt\/lists\/*/g' Dockerfile
-
     fi
 
     # IMAGE CONFIG AND ARGS
@@ -126,7 +124,6 @@ for RELEASE in "${RELEASES[@]}"; do
 	        --build-arg VERSION="${_VERSION}" \
 	        --build-arg VCS_REF="${_VCS_REF}" \
 	        --build-arg BUILD_DATE="${_BUILD_DATE}" \
-            --build-arg S6_URL="${S6_URL}" \
 	        --platform "${_PLATFORMS}" \
 	        -t "${_NAME}:${_RELEASE}" \
             -t "${_NAME}:${NUM_RELEASE}" \
@@ -138,7 +135,6 @@ for RELEASE in "${RELEASES[@]}"; do
 	        --build-arg VERSION="${_VERSION}" \
 	        --build-arg VCS_REF="${_VCS_REF}" \
 	        --build-arg BUILD_DATE="${_BUILD_DATE}" \
-            --build-arg S6_URL="${S6_URL}" \
 	        --platform "${_PLATFORMS}" \
 	        -t "${_NAME}:${_RELEASE}" \
             -t "${_NAME}:${NUM_RELEASE}" \

@@ -62,7 +62,7 @@ RUN set -xe \
 RUN mkdir -p /run/systemd && echo 'docker' > /run/systemd/container
 
 # ADD S6-OVERLAY
-ADD ${S6_URL} /tmp/s6-overlay.tar.gz
+ADD ${TARGETPLATFORM}/s6-overlay.tar.gz /tmp/s6-overlay.tar.gz
 RUN tar xzf /tmp/s6-overlay.tar.gz -C / --exclude='./bin' && tar xzf /tmp/s6-overlay.tar.gz -C /usr ./bin
 
 # INIT S6-OVERLAY

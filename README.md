@@ -33,7 +33,7 @@ See more: [github.com/just-containers/s6-overlay](https://github.com/just-contai
 
 `focal` or `20.04` - Ubuntu 20.04 LTS ([Focal Fossa](https://wiki.ubuntu.com/FocalFossa/ReleaseNotes))
 
-`groovy` or ``20.10` - Ubuntu 20.10 ([Groovy Gorilla](https://wiki.ubuntu.com/GroovyGorilla/ReleaseNotes))
+`groovy` or `20.10` - Ubuntu 20.10 ([Groovy Gorilla](https://wiki.ubuntu.com/GroovyGorilla/ReleaseNotes))
 
 `latest` - Ubuntu 20.10 ([Groovy Gorilla](https://wiki.ubuntu.com/GroovyGorilla/ReleaseNotes))
 

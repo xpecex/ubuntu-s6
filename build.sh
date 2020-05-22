@@ -109,6 +109,8 @@ for RELEASE in "${RELEASES[@]}"; do
     # CONFIGURE DOCKERFILE FOR XENIAL
     if [ "$_RELEASE" = "xenial" ]; then
         sed -i 's/RUN \[ -z "$(apt-get indextargets)" ]/RUN rm -rf \/var\/lib\/apt\/lists\/*/g' Dockerfile
+    else 
+        sed -i 's/RUN rm -rf \/var\/lib\/apt\/lists\/\*/RUN \[ -z "$(apt-get indextargets)" ]/g' Dockerfile
     fi
 
     # IMAGE CONFIG AND ARGS

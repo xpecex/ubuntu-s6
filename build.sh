@@ -111,6 +111,9 @@ for RELEASE in "${RELEASES[@]}"; do
     if [ "$_RELEASE" = "xenial"  ] || [ "$_RELEASE" = "trusty" ]; then
         sed -i 's/RUN \[ -z "$(apt-get indextargets)" ]/RUN rm -rf \/var\/lib\/apt\/lists\/*/g' Dockerfile
         DFILE="$(dirname $0)/Dockerfile.old"
+    elif [ "$_RELEASE" = "bionic" ]; then
+        sed -i 's/RUN rm -rf \/var\/lib\/apt\/lists\/\*/RUN \[ -z "$(apt-get indextargets)" ]/g' Dockerfile
+        DFILE="$(dirname $0)/Dockerfile.old"
     else
         DFILE="$(dirname $0)/Dockerfile"
         sed -i 's/RUN rm -rf \/var\/lib\/apt\/lists\/\*/RUN \[ -z "$(apt-get indextargets)" ]/g' Dockerfile

@@ -4,7 +4,7 @@ language: minimal
 env:
   global:
     - IMAGE_NAME=""
-    - S6_VERSION=""
+    - S6_VERSION="2.0.0.1"
     - DOCKER_CLI_EXPERIMENTAL="enabled"
 before_install:
   - sudo apt install -y apt-transport-https ca-certificates curl software-properties-common

@@ -107,12 +107,12 @@ for RELEASE in "${RELEASES[@]}"; do
     # BUILD AND PUSH TO DOCKER
 
     # CONFIGURE DOCKERFILE FOR XENIAL
+    DFILE=""
     if [ "$_RELEASE" = "xenial"  ] || [ "$_RELEASE" = "trusty" ]; then
         sed -i 's/RUN \[ -z "$(apt-get indextargets)" ]/RUN rm -rf \/var\/lib\/apt\/lists\/*/g' Dockerfile
-        sed -i 's/--exclude=".\/bin"//g' Dockerfile
-        sed -i '/tar xzf \/tmp\/s6-overlay.tar.gz -C \/usr \.\/bin \\/d' Dockerfile
+        DFILE="$(dirname $0)/Dockerfile.old"
     else
-        sed -i 's/tar xzf \/tmp\/s6-overlay.tar.gz -C \/ \\/tar xzf \/tmp\/s6-overlay.tar.gz -C \/ --exclude=".\/bin" \&\& tar xzf \/tmp\/s6-overlay.tar.gz -C \/usr .\/bin \\/g' Dockerfile
+        DFILE="$(dirname $0)/Dockerfile"
         sed -i 's/RUN rm -rf \/var\/lib\/apt\/lists\/\*/RUN \[ -z "$(apt-get indextargets)" ]/g' Dockerfile
     fi
 
@@ -133,6 +133,7 @@ for RELEASE in "${RELEASES[@]}"; do
 	        -t "${_NAME}:${_RELEASE}" \
             -t "${_NAME}:${NUM_RELEASE}" \
             -t "${_NAME}:latest" \
+            -f "$DFILE" \
 	        .
     else
         docker buildx build \
@@ -143,6 +144,7 @@ for RELEASE in "${RELEASES[@]}"; do
 	        --platform "${_PLATFORMS}" \
 	        -t "${_NAME}:${_RELEASE}" \
             -t "${_NAME}:${NUM_RELEASE}" \
+            -f "$DFILE" \
 	        .
     fi
 

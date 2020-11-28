@@ -38,3 +38,9 @@ See more: [github.com/just-containers/s6-overlay](https://github.com/just-contai
 `latest` - Ubuntu 20.10 ([Groovy Gorilla](https://wiki.ubuntu.com/GroovyGorilla/ReleaseNotes))
 
 `docker run -it xpecex/ubuntu-s6:<tag>`
+
+
+
+-----------
+[![Donate with Ethereum](https://en.cryptobadges.io/badge/small/0xE32cACcB768a3E65e83B3AF39ca31f446C06432D)](https://en.cryptobadges.io/donate/0xE32cACcB768a3E65e83B3AF39ca31f446C06432D)
+[![Donate with Bitcoin](https://en.cryptobadges.io/badge/small/1E7HYMUCf3DD7kcpkyY38tzUzT2F8w1Rg7)](https://en.cryptobadges.io/donate/1E7HYMUCf3DD7kcpkyY38tzUzT2F8w1Rg7)
